@@ -6,20 +6,15 @@ use PDO;
 
 class App
 {
-    private $db;
-    private static $query;
+    private $query;
     private $attributes = [];
 
+    protected $db;
     protected $table;
 
-    public function __construct($db)
+    public function all()
     {
-        $this->db = $db;
-    }
-
-    public static function all()
-    {
-        $this->query = "SELECT * FROM `{$this->table}`";
+        $query = "SELECT * FROM `{$this->table}`";
 
         return $this->run();
     }
@@ -34,7 +29,7 @@ class App
 
     public function find($id)
     {
-        $this->query = "SELECT * FROM `{$this->table}` WHERE `id` = :id";
+        $this->query = "SELECT * FROM `{$this->table}` WHERE `id` = :id LIMIT 1";
         $this->attributes[':id'] = $id;
 
         return $this->run();
@@ -72,7 +67,7 @@ class App
     public function run()
     {
         try {
-            $prepare = $this->db->prepare(self::$query);
+            $prepare = $this->db->prepare($this->query);
             $prepare->execute($this->attributes);
             $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
 

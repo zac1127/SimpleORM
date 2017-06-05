@@ -1,7 +1,16 @@
 <?php
 
-use App\App;
+use App\User;
 
-$app = new App($handler);
+$user = new User($handler);
 
-print_r($app->first());
+echo '------- FIRST -------';
+print_r($user->first());
+echo '------- SECOND -------';
+print_r($user->second());
+echo '------- LAST -------';
+print_r($user->last());
+echo '------- WHERE -------';
+print_r($user->where('id', '2'));
+echo '------- ALL -------';
+print_r($user->all());
