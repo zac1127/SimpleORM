@@ -1,9 +1,8 @@
 <?php
 
-use App\User;
+use ZacBranson\SimpleORM\User;
 
-$user = new User($handler);
+$user = new User();
 
 // echo '------- Where -------';
-print_r($user->where('id', '>=', '3'));
-// print_r(User::all());
+print_r($user->all());

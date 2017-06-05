@@ -1,12 +1,14 @@
 <?php
 
-namespace App;
+namespace ZacBranson\SimpleORM;
 
-class User extends App
+class User extends Model
 {
-    public function __construct($db)
+    protected $table;
+
+    public function __construct()
     {
         $this->table = 'users';
-        $this->db = $db;
+        parent::__construct();
     }
 }
