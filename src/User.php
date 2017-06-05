@@ -6,7 +6,7 @@ class User extends App
 {
     public function __construct($db)
     {
-        parent::$table = 'users';
-        parent::$db = $db;
+        $this->table = 'users';
+        $this->db = $db;
     }
 }

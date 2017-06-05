@@ -6,72 +6,72 @@ use PDO;
 
 class App
 {
-    private static $query;
-    private static $attributes = [];
+    private $query;
+    private $attributes = [];
 
-    protected static $db;
-    protected static $table;
+    protected $db;
+    protected $table;
 
-    public static function all()
+    public function all()
     {
-        self::$query = 'SELECT * FROM `'.self::$table.'`';
+        $this->query = 'SELECT * FROM `'.$this->table.'`';
 
-        return self::run();
+        return $this->run();
     }
 
-    public static function where($feild, $operator, $attribute)
+    public function where($feild, $operator, $attribute)
     {
-        self::$query = 'SELECT * FROM `'.self::$table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
-        self::$attributes[':attribute'] = $attribute;
+        $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
+        $this->attributes[':attribute'] = $attribute;
 
-        return self::run();
+        return $this->run();
     }
 
-    public static function find($id)
+    public function find($id)
     {
-        self::$query = 'SELECT * FROM `'.self::$table.'` WHERE `id` = :id LIMIT 1';
-        self::$attributes[':id'] = $id;
+        $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `id` = :id LIMIT 1';
+        $this->attributes[':id'] = $id;
 
-        return self::run();
+        return $this->run();
     }
 
-    public static function first()
+    public function first()
     {
-        self::$query = 'SELECT * FROM `'.self::$table.'` ORDER BY `id` asc LIMIT 1';
+        $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` asc LIMIT 1';
 
-        return self::run();
+        return $this->run();
     }
 
-    public static function second()
+    public function second()
     {
-        self::$query = 'SELECT * FROM `'.self::$table.'` ORDER BY `id` asc LIMIT 1, 1';
+        $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` asc LIMIT 1, 1';
 
-        return self::run();
+        return $this->run();
     }
 
-    public static function last()
+    public function last()
     {
-        self::$query = 'SELECT * FROM `'.self::$table.'` ORDER BY `id` desc LIMIT 1';
+        $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` desc LIMIT 1';
 
-        return self::run();
+        return $this->run();
     }
 
     //  UNDER CONSTRUCTION
-    // public static function order_by($key, $direction)
+    // public   function order_by($key, $direction)
     // {
     //     $order = "{$this->query} ORDER BY {$key} {$direction}";
 
-    //     return self::run();
+    //     return $this->run();
     // }
 
-    public static function run()
+    public function run()
     {
         try {
-            $prepare = self::$db->prepare(self::$query);
-            $prepare->execute(self::$attributes);
-            $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
+            $prepare = $this->db->prepare($this->query);
+            $prepare->execute($this->attributes);
+            $obj = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
-            return $obj;
+            return json_encode($obj);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
