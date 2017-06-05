@@ -75,7 +75,7 @@ class QueryBuilder
         try {
             $prepare = $this->db->prepare($this->query);
             $prepare->execute($this->attributes);
-            $obj = $prepare->fetchAll(PDO::FETCH_ASSOC);
+            $obj = $prepare->fetchAll(PDO::FETCH_ClASS, ucfirst($this->table));
 
             return json_encode($obj);
         } catch (PDOException $e) {
