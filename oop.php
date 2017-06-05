@@ -4,13 +4,8 @@ use App\User;
 
 $user = new User($handler);
 
-echo '------- FIRST -------';
-print_r($user->first());
-echo '------- SECOND -------';
-print_r($user->second());
-echo '------- LAST -------';
-print_r($user->last());
-echo '------- WHERE -------';
-print_r($user->where('id', '2'));
-echo '------- ALL -------';
-print_r($user->all());
+// echo '------- Where -------';
+// print_r(User::where('id', '=', '3'));
+
+echo '------- first -------';
+print_r(User::second());
