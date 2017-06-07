@@ -5,7 +5,7 @@ namespace Zacbranson\SimpleORM\Database;
 use Zacbranson\SimpleORM\App;
 use PDO;
 
-class QueryBuilder
+class QueryBuilder 
 {
     private $query;
 
@@ -38,7 +38,7 @@ class QueryBuilder
     {
         $this->query = 'SELECT * FROM `'.$this->table.'`';
 
-        return $this->run();
+        return $this;
     }
 
     /**
@@ -78,9 +78,13 @@ class QueryBuilder
      */
     public function first()
     {
+        if($this->query == NULL) {
+          $this->query = "SELECT * FROM `'.$this->table.'";
+        }
+
         $this->query .= ' LIMIT 1';
 
-        return $this->run();
+        return $this;
     }
 
     /**
@@ -92,7 +96,7 @@ class QueryBuilder
     {
         $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` asc LIMIT 1, 1';
 
-        return $this->run();
+        return $this;
     }
 
     /**
@@ -104,7 +108,7 @@ class QueryBuilder
     {
         $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` desc LIMIT 1';
 
-        return $this->run();
+        return $this;
     }
 
     /**
@@ -119,7 +123,7 @@ class QueryBuilder
     {
         $this->query = "{$this->query} ORDER BY {$key} {$direction}";
 
-        return $this->run();
+        return $this;
     }
 
 
@@ -134,7 +138,7 @@ class QueryBuilder
     {
         $this->query = "{$this->query} LIMIT {$limit_number}";
 
-        return $this->run();
+        return $this;
     }
 
     /**

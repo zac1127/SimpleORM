@@ -20,9 +20,6 @@ class Model
      */
     public function __call($method, $parameters)
     {
-        // if (in_array($method, ['increment', 'decrement'])) {
-        //     return $this->$method(...$parameters);
-        // }
         return $this->newQuery()->$method(...$parameters);
     }
 
