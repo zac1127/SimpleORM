@@ -3,8 +3,8 @@
 namespace Zacbranson\SimpleORM\Database;
 
 use Zacbranson\SimpleORM\App;
-use PDO;
 use JsonSerializable;
+use PDO;
 
 class QueryBuilder implements JsonSerializable
 {
@@ -198,6 +198,11 @@ class QueryBuilder implements JsonSerializable
         }
     }
 
+    /**
+     * counts the number of databse rows found
+     *
+     * @return int - number of database rows found
+     */
     public function count()
     {
       try {

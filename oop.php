@@ -3,5 +3,4 @@
 use ZacBranson\SimpleORM\User;
 
 $user = new User;
-
-dd($user->all()->count());
+dd($user->getUserbyAttrubute("name", "Zachary Branson"));
