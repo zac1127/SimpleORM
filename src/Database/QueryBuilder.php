@@ -65,12 +65,9 @@ class QueryBuilder
      *
      * @return runs the query.
      */
-    public static function find($id)
+    public function find($id)
     {
-        // $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `id` = :id LIMIT 1';
-        // $this->attributes[':id'] = $id;
         return $this->where('id', '=', $id)->first();
-
     }
 
     /**
