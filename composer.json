@@ -1,7 +1,8 @@
 {
   "autoload": {
     "psr-4" : {
-      "ZacBranson\\SimpleORM\\" : "src"
+      "ZacBranson\\SimpleORM\\" : "src",
+      "ZacBranson\\Core\\" : "core"
     }
   },
   "require-dev": {

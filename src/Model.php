@@ -2,7 +2,7 @@
 
 namespace ZacBranson\SimpleORM;
 
-use ZacBranson\SimpleORM\Database\QueryBuilder;
+use ZacBranson\Core\Database\QueryBuilder;
 
 class Model
 {
