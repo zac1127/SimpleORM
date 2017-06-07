@@ -2,7 +2,5 @@
 
 use ZacBranson\SimpleORM\User;
 
-$user = new User();
 
-
-  var_dump(User::where("id", "<=", "3"));
+var_dump(User::all());
