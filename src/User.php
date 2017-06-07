@@ -1,6 +1,6 @@
 <?php
 
-namespace ZacBranson\SimpleORM;
+namespace ZacBranson\SimplePHP;
 
 class User extends Model
 {

@@ -1,7 +1,7 @@
 {
   "autoload": {
     "psr-4" : {
-      "ZacBranson\\SimpleORM\\" : "src",
+      "ZacBranson\\SimplePHP\\" : "src",
       "ZacBranson\\Core\\" : "core"
     }
   },

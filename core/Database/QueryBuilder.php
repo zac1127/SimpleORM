@@ -191,7 +191,8 @@ class QueryBuilder implements JsonSerializable
             $obj = $prepare->fetchAll(PDO::FETCH_ASSOC);
             $this->output = $obj;
 
-            return $this->toJson();
+            // return $this->toJson();
+            return $obj;
 
         } catch (PDOException $e) {
             echo $e->getMessage();
