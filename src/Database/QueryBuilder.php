@@ -47,12 +47,12 @@ class QueryBuilder
     public static function where($feild, $operator, $attribute)
     {
 
-        $query = new static;
+        $instance = new static;
 
-        $query->query = 'SELECT * FROM `'.$query->table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
-        $query->attributes[':attribute'] = $attribute;
+        $instance->query = 'SELECT * FROM `'.$instance->table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
+        $instance->attributes[':attribute'] = $attribute;
 
-        return $query;
+        return $instance;
     }
 
     /**
@@ -62,12 +62,14 @@ class QueryBuilder
      *
      * @return runs the query.
      */
-    public function find($id)
+    public static function find($id)
     {
-        $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `id` = :id LIMIT 1';
-        $this->attributes[':id'] = $id;
+        $instance = new static;
 
-        return $this->run();
+        $instance->query = 'SELECT * FROM `'.$instance->table.'` WHERE `id` = :id LIMIT 1';
+        $instance->attributes[':id'] = $id;
+
+        return $instance->run();
     }
 
     /**
@@ -117,6 +119,21 @@ class QueryBuilder
     public function order_by($key, $direction)
     {
         $this->query = "{$this->query} ORDER BY {$key} {$direction}";
+
+        return $this->run();
+    }
+
+
+    /**
+     * Limits the number of results
+     *
+     * @param $limit_number    - int - how many results to return
+     *
+     * @return runs the query.
+     */
+    public function limit($limit_number)
+    {
+        $this->query = "{$this->query} LIMIT {$limit_number}";
 
         return $this->run();
     }

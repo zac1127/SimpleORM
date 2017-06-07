@@ -5,7 +5,4 @@ use ZacBranson\SimpleORM\User;
 $user = new User();
 
 
-dd(
-  User::where("id", "<=", "3")
-        ->order_by("id", "desc")
-  );
+  var_dump(User::where("id", "<=", "3"));

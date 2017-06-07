@@ -12,4 +12,5 @@ class Model extends QueryBuilder
         $this->table = strtolower((new \ReflectionClass($this))->getShortName() . 's');
         parent::__construct();
     }
+    
 }
