@@ -8,17 +8,23 @@ use PDO;
 class QueryBuilder
 {
     private $query;
+
     private $attributes = [];
 
     protected $db;
+
     protected $table;
+
+    protected $className;
 
     /**
      * QueryBuilder Constructor.
      *
      */
-    public function __construct()
+    public function __construct($model)
     {
+        $this->className = get_class($model);
+        $this->table = strtolower((new \ReflectionClass($model))->getShortName() . 's');
         $this->db = App::get('database');
     }
 
@@ -44,15 +50,13 @@ class QueryBuilder
      *
      * @return instance of query
      */
-    public static function where($field, $operator, $attribute)
+    public function where($field, $operator, $attribute)
     {
 
-        $query = new static;
+        $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `'.$field.'` '.$operator.' :attribute';
+        $this->attributes[':attribute'] = $attribute;
 
-        $query->query = 'SELECT * FROM `'.$query->table.'` WHERE `'.$field.'` '.$operator.' :attribute';
-        $query->attributes[':attribute'] = $attribute;
-
-        return $query;
+        return $this;
     }
 
     /**
@@ -138,4 +142,7 @@ class QueryBuilder
             echo $e->getMessage();
         }
     }
+
+
+
 }
