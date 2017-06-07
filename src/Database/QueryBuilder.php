@@ -13,11 +13,21 @@ class QueryBuilder
     protected $db;
     protected $table;
 
+    /**
+     * QueryBuilder Constructor.
+     *
+     */
     public function __construct()
     {
         $this->db = App::get('database');
     }
 
+    /**
+     * Returns all from the table
+     *
+     *
+     * @return this->run() - runs the query.
+     */
     public function all()
     {
         $this->query = 'SELECT * FROM `'.$this->table.'`';
@@ -25,14 +35,33 @@ class QueryBuilder
         return $this->run();
     }
 
-    public function where($feild, $operator, $attribute)
+    /**
+     * Restricts query on WHERE condition
+     *
+     * @param $field             - database field
+     * @param $operator          - operator entered for condition
+     * @param $attribute         - attribute compared on the field
+     *
+     * @return instance of query
+     */
+    public static function where($feild, $operator, $attribute)
     {
-        $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
-        $this->attributes[':attribute'] = $attribute;
 
-        return $this->run();
+        $query = new static;
+
+        $query->query = 'SELECT * FROM `'.$query->table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
+        $query->attributes[':attribute'] = $attribute;
+
+        return $query;
     }
 
+    /**
+     * Finds row from uqique ID
+     *
+     * @param $id - unique ID of table row
+     *
+     * @return runs the query.
+     */
     public function find($id)
     {
         $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `id` = :id LIMIT 1';
@@ -41,6 +70,11 @@ class QueryBuilder
         return $this->run();
     }
 
+    /**
+     * Returns first row from collection
+     *
+     * @return runs the query.
+     */
     public function first()
     {
         $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` asc LIMIT 1';
@@ -48,6 +82,11 @@ class QueryBuilder
         return $this->run();
     }
 
+    /**
+     * Returns second row from collection
+     *
+     * @return runs the query.
+     */
     public function second()
     {
         $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` asc LIMIT 1, 1';
@@ -55,6 +94,11 @@ class QueryBuilder
         return $this->run();
     }
 
+    /**
+     * Returns last row from collection
+     *
+     * @return runs the query.
+     */
     public function last()
     {
         $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` desc LIMIT 1';
@@ -62,20 +106,32 @@ class QueryBuilder
         return $this->run();
     }
 
-    //  UNDER CONSTRUCTION
-    // public function order_by($key, $direction)
-    // {
-    //     $order = "{$this->query} ORDER BY {$key} {$direction}";
+    /**
+     * Orders the collection
+     *
+     * @param $key             - Attribute to order
+     * @param $direction       - Ascending or Descending
+     *
+     * @return runs the query.
+     */
+    public function order_by($key, $direction)
+    {
+        $this->query = "{$this->query} ORDER BY {$key} {$direction}";
 
-    //     return $this->run();
-    // }
+        return $this->run();
+    }
 
+    /**
+     * Executes the query
+     *
+     * @return JSON formatted object of database results.
+     */
     public function run()
     {
         try {
             $prepare = $this->db->prepare($this->query);
             $prepare->execute($this->attributes);
-            $obj = $prepare->fetchAll(PDO::FETCH_ClASS, ucfirst($this->table));
+            $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
 
             return json_encode($obj);
         } catch (PDOException $e) {

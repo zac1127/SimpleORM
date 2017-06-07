@@ -3,6 +3,9 @@
 use ZacBranson\SimpleORM\User;
 
 $user = new User();
-dd($user->first());
-// echo '------- Where -------';
-print_r($user->all());
+
+
+dd(
+  User::where("id", "<=", "3")
+        ->order_by("id", "desc")
+  );
