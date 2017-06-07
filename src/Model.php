@@ -37,4 +37,5 @@ class Model
     {
         return (new static)->$method(...$parameters);
     }
+    
 }

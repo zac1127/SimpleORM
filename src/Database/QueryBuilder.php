@@ -52,7 +52,6 @@ class QueryBuilder
      */
     public function where($field, $operator, $attribute)
     {
-
         $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `'.$field.'` '.$operator.' :attribute';
         $this->attributes[':attribute'] = $attribute;
 
@@ -66,11 +65,12 @@ class QueryBuilder
      *
      * @return runs the query.
      */
-    public function find($id)
+    public static function find($id)
     {
         // $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `id` = :id LIMIT 1';
         // $this->attributes[':id'] = $id;
         return $this->where('id', '=', $id)->first();
+
     }
 
     /**
@@ -120,6 +120,21 @@ class QueryBuilder
     public function order_by($key, $direction)
     {
         $this->query = "{$this->query} ORDER BY {$key} {$direction}";
+
+        return $this->run();
+    }
+
+
+    /**
+     * Limits the number of results
+     *
+     * @param $limit_number    - int - how many results to return
+     *
+     * @return runs the query.
+     */
+    public function limit($limit_number)
+    {
+        $this->query = "{$this->query} LIMIT {$limit_number}";
 
         return $this->run();
     }
