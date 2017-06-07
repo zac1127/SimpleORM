@@ -26,7 +26,6 @@ class Model
         return $this->newQuery()->$method(...$parameters);
     }
 
-
     /**
      * Handle dynamic static method calls into the method.
      *
@@ -38,5 +37,5 @@ class Model
     {
         return (new static)->$method(...$parameters);
     }
-    
+
 }

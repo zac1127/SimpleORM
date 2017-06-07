@@ -52,6 +52,7 @@ class QueryBuilder
      */
     public function where($field, $operator, $attribute)
     {
+<<<<<<< HEAD
 
         $instance = new static;
 
@@ -59,6 +60,8 @@ class QueryBuilder
         $instance->attributes[':attribute'] = $attribute;
 
         return $instance;
+=======
+>>>>>>> a617cd85073975360aa58cffe2af4a0628e3a6e0
         $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `'.$field.'` '.$operator.' :attribute';
         $this->attributes[':attribute'] = $attribute;
 
@@ -72,14 +75,9 @@ class QueryBuilder
      *
      * @return runs the query.
      */
-    public static function find($id)
+    public function find($id)
     {
-        $instance = new static;
-
-        $instance->query = 'SELECT * FROM `'.$instance->table.'` WHERE `id` = :id LIMIT 1';
-        $instance->attributes[':id'] = $id;
-
-        return $instance->run();
+        return $this->where('id', '=', $id)->first();
     }
 
     /**
@@ -89,7 +87,7 @@ class QueryBuilder
      */
     public function first()
     {
-        $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` asc LIMIT 1';
+        $this->query .= ' LIMIT 1';
 
         return $this->run();
     }
