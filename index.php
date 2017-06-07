@@ -2,5 +2,5 @@
 
 
   require './vendor/autoload.php';
-  require './bootstrap.php';
+  require './core/bootstrap.php';
   require './oop.php';
