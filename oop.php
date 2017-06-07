@@ -2,10 +2,5 @@
 
 use ZacBranson\SimpleORM\User;
 
-$user = new User();
+dd(User::find(3));
 
-
-dd(
-  User::where("id", "<=", "3")
-        ->order_by("id", "desc")
-  );

@@ -68,10 +68,9 @@ class QueryBuilder
      */
     public function find($id)
     {
-        $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `id` = :id LIMIT 1';
-        $this->attributes[':id'] = $id;
-
-        return $this->run();
+        // $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `id` = :id LIMIT 1';
+        // $this->attributes[':id'] = $id;
+        return $this->where('id', '=', $id)->first();
     }
 
     /**
@@ -81,7 +80,7 @@ class QueryBuilder
      */
     public function first()
     {
-        $this->query = 'SELECT * FROM `'.$this->table.'` ORDER BY `id` asc LIMIT 1';
+        $this->query .= ' LIMIT 1';
 
         return $this->run();
     }
