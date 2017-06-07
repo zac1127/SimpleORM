@@ -52,16 +52,7 @@ class QueryBuilder
      */
     public function where($field, $operator, $attribute)
     {
-<<<<<<< HEAD
 
-        $instance = new static;
-
-        $instance->query = 'SELECT * FROM `'.$instance->table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
-        $instance->attributes[':attribute'] = $attribute;
-
-        return $instance;
-=======
->>>>>>> a617cd85073975360aa58cffe2af4a0628e3a6e0
         $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `'.$field.'` '.$operator.' :attribute';
         $this->attributes[':attribute'] = $attribute;
 
