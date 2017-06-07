@@ -44,12 +44,12 @@ class QueryBuilder
      *
      * @return instance of query
      */
-    public static function where($feild, $operator, $attribute)
+    public static function where($field, $operator, $attribute)
     {
 
         $query = new static;
 
-        $query->query = 'SELECT * FROM `'.$query->table.'` WHERE `'.$feild.'` '.$operator.' :attribute';
+        $query->query = 'SELECT * FROM `'.$query->table.'` WHERE `'.$field.'` '.$operator.' :attribute';
         $query->attributes[':attribute'] = $attribute;
 
         return $query;
