@@ -131,7 +131,11 @@ class QueryBuilder
         try {
             $prepare = $this->db->prepare($this->query);
             $prepare->execute($this->attributes);
+<<<<<<< HEAD
             $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
+=======
+            $obj = $prepare->fetchAll(PDO::FETCH_CLASS, $this->className);
+>>>>>>> b2278d68cc4a18d18f9ff804eba5f9cd63a2239e
 
             return json_encode($obj);
         } catch (PDOException $e) {
