@@ -198,6 +198,19 @@ class QueryBuilder implements JsonSerializable
         }
     }
 
+    public function count()
+    {
+      try {
+          $prepare = $this->db->prepare($this->query);
+          $prepare->execute($this->attributes);
+          $obj = $prepare->fetchAll(PDO::FETCH_ASSOC);
+          return count($obj);
+
+      } catch (PDOException $e) {
+          echo $e->getMessage();
+      }
+    }
+
 
     public function toJson($options = 0)
     {
