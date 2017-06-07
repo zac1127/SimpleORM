@@ -1,5 +1,6 @@
 {
   "autoload": {
+    "files": ["helpers.php"],
     "psr-4" : {
       "ZacBranson\\SimpleORM\\" : "src"
     }
