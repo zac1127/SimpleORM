@@ -2,5 +2,6 @@
 
 use ZacBranson\SimpleORM\User;
 
+$user = new User;
 
-dd(User::where("id", "2")->run());
+dd($user->select('name')->run());

@@ -46,6 +46,30 @@ class QueryBuilder implements JsonSerializable
     }
 
     /**
+     * Select Query with constraints
+     *
+     *
+     * @return $this
+     */
+    public function select(...$parameters)
+    {
+        $query = 'SELECT ';
+
+        foreach($parameters as $key => $value)
+        {
+          $query .= '`'.$value.'`';
+          if($key != count($parameters)-1)
+            $query .= ',';
+        }
+
+        $query .= ' FROM `'.$this->table.'`';
+
+        $this->query = $query;
+
+        return $this;
+    }
+
+    /**
      * Restricts query on WHERE condition
      *
      * @param $field             - database field
