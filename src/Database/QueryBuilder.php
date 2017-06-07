@@ -4,8 +4,9 @@ namespace Zacbranson\SimpleORM\Database;
 
 use Zacbranson\SimpleORM\App;
 use PDO;
+use JsonSerializable;
 
-class QueryBuilder 
+class QueryBuilder implements JsonSerializable
 {
     private $query;
 
@@ -14,6 +15,8 @@ class QueryBuilder
     protected $db;
 
     protected $table;
+
+    protected $output;
 
     protected $className;
 
@@ -36,6 +39,7 @@ class QueryBuilder
      */
     public function all()
     {
+
         $this->query = 'SELECT * FROM `'.$this->table.'`';
 
         return $this;
@@ -50,8 +54,17 @@ class QueryBuilder
      *
      * @return instance of query
      */
-    public function where($field, $operator, $attribute)
+    public function where(...$parameters)
     {
+        if(count($parameters) == 3){
+          $field = $parameters[0];
+          $operator = $parameters[1];
+          $attribute = $parameters[2];
+        } else {
+          $field = $parameters[0];
+          $operator = "=";
+          $attribute = $parameters[1];
+        }
 
         $this->query = 'SELECT * FROM `'.$this->table.'` WHERE `'.$field.'` '.$operator.' :attribute';
         $this->attributes[':attribute'] = $attribute;
@@ -68,7 +81,7 @@ class QueryBuilder
      */
     public function find($id)
     {
-        return $this->where('id', '=', $id)->first();
+        return $this->where('id', '=', $id)->first()->run();
     }
 
     /**
@@ -138,7 +151,7 @@ class QueryBuilder
     {
         $this->query = "{$this->query} LIMIT {$limit_number}";
 
-        return $this;
+        return $this->run();
     }
 
     /**
@@ -151,14 +164,28 @@ class QueryBuilder
         try {
             $prepare = $this->db->prepare($this->query);
             $prepare->execute($this->attributes);
-            $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
+            $obj = $prepare->fetchAll(PDO::FETCH_ASSOC);
+            $this->output = $obj;
 
-            return json_encode($obj);
+            return $this->toJson();
+
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
 
 
+    public function toJson($options = 0)
+    {
+        $json = json_encode($this->jsonSerialize(), $options);
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            throw JsonEncodingException::forModel($this, json_last_error_msg());
+        }
+        return $json;
+    }
+
+    public function jsonSerialize() {
+      return $this->output;
+    }
 
 }
