@@ -1,8 +1,6 @@
 <?php
 
-namespace ZacBranson\SimplePHP;
-
-use ZacBranson\Core\Database\QueryBuilder;
+namespace ZacBranson\Core\Database;
 
 class Model
 {

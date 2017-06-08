@@ -17,6 +17,7 @@ class Connection
             $config['options']
             );
         } catch (PDOException $e) {
+            echo 'error creating database connection<br>';
             die($e->getMessage());
         }
     }
