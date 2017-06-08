@@ -9,5 +9,3 @@ $router->get('/users', 'UsersController@index');
 
 // Post methods not yet tested
 // $router->post('/users', 'UsersController@store');
-
-

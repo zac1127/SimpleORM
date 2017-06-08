@@ -40,8 +40,8 @@
         <div class="title-container">
         <?php foreach ($users as $user): ?>
                 <pre>
-                id : <?= $user['id'] ?>
-                name : <?= $user['name'] ?>
+                id : <?= $user->id ?>
+                name : <?= $user->name ?>
                 </pre>
         <?php endforeach; ?>
         <hr>
