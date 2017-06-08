@@ -188,7 +188,7 @@ class QueryBuilder implements JsonSerializable
         try {
             $prepare = $this->db->prepare($this->query);
             $prepare->execute($this->attributes);
-            $obj = $prepare->fetchAll(PDO::FETCH_ASSOC);
+            $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
             $this->output = $obj;
 
             // return $this->toJson();
