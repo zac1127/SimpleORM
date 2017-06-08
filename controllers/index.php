@@ -5,7 +5,4 @@
 
   $users = User::all()->run();
 
-
   require 'views/index.view.php';
-
- ?>
