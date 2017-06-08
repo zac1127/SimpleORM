@@ -1,7 +1,8 @@
 {
   "autoload": {
+    "files": ["helpers.php"],
     "psr-4" : {
-      "ZacBranson\\SimplePHP\\" : "src",
+      "ZacBranson\\SimplePHP\\" : "app",
       "ZacBranson\\Core\\" : "core"
     }
   },

@@ -2,6 +2,8 @@
 
 namespace ZacBranson\SimplePHP;
 
+use ZacBranson\Core\Database\Model;
+
 class User extends Model
 {
   public function getUserById($id)
