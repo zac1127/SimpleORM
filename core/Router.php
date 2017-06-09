@@ -30,13 +30,14 @@ class Router
     public function direct($uri, $requestType)
     {
         if (array_key_exists($uri, $this->routes[$requestType])) {
-            $params = explode('@', $this->routes[$requestType][$uri]);
+            
+            $params = preg_split("/[\@,]+/", $this->routes[$requestType][$uri]);
+
             return $this->callAction(
                 'ZacBranson\SimplePHP\Controllers\\' . $params[0], $params[1]
             );
         }
         return view('404');
-        // throw new Exception("No Route Found!");
     }
 
     private function callAction($controller, $action)
