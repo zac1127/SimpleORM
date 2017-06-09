@@ -9,6 +9,6 @@ class UsersController
     {
         $users = User::all()->run();
 
-        return view('users', ["users" => $users]);
+        return view('users.index', ["users" => $users]);
     }
 }

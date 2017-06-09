@@ -1,11 +1,18 @@
 <?php
 
-function view($name, $data = [])
+function view($path, $data = [])
 {
+    $path = implode('/', explode('.', $path));
+
     foreach ($data as $key => $value) {
         $$key = $value;
     }
-    return require "../views/{$name}.view.php";
+
+    if(is_file("../views/{$path}.view.php")) {
+        return require "../views/{$path}.view.php";
+    }
+
+    return require "../views/404.view.php";
 }
 
 function redirect($path)
