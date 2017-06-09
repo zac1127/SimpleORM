@@ -1,7 +1,5 @@
 <?php
-
 return [
-  'database' => [
     'name' => 'query-builder',
     'username' => 'root',
     'password' => '',
@@ -9,5 +7,4 @@ return [
     'options' => [
       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     ],
-  ],
 ];
