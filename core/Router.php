@@ -5,7 +5,7 @@ class Router
 {
     protected $routes = [
         'GET' => [],
-        'POST' => [],
+        'POST' => []
     ];
 
     public static function load($file)
@@ -30,7 +30,7 @@ class Router
     public function direct($uri, $requestType)
     {
         if (array_key_exists($uri, $this->routes[$requestType])) {
-            
+
             $params = preg_split("/[\@,]+/", $this->routes[$requestType][$uri]);
 
             return $this->callAction(

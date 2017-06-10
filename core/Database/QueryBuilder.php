@@ -178,6 +178,26 @@ class QueryBuilder implements JsonSerializable
         return $this->run();
     }
 
+
+    // /**
+    //  * Updates the table
+    //  *
+    //  * @param $limit_number    - int - how many results to return
+    //  *
+    //  * @return runs the query.
+    //  */
+    // public function update($values)
+    // {
+    //
+    //
+    //
+    //
+    //     $this->query = "UPDATE {$this->table} SET ";
+    //
+    //     return $this->run();
+    // }
+
+
     /**
      * Executes the query
      *

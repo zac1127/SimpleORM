@@ -12,13 +12,10 @@ if (! function_exists('view')) {
     {
         $viewsPath = config('view')['path'] . '/';
 
-        $path = implode('/', explode('.', $path));
-
-        foreach ($data as $key => $value) {
-            $$key = $value;
-        }
+        $path = str_replace(".", "/", $path);
 
         if (is_file("{$viewsPath}{$path}.view.php")) {
+            extract($data);
             return require "{$viewsPath}{$path}.view.php";
         }
 
