@@ -35,7 +35,7 @@ class QueryBuilder implements JsonSerializable
      * Returns all from the table
      *
      *
-     * @return this->run() - runs the query.
+     * @return this->get() - runs the query.
      */
     public function all()
     {
@@ -105,7 +105,7 @@ class QueryBuilder implements JsonSerializable
      */
     public function find($id)
     {
-        return $this->where('id', '=', $id)->first()->run();
+        return $this->where('id', '=', $id)->first()->get();
     }
 
     /**
@@ -175,27 +175,61 @@ class QueryBuilder implements JsonSerializable
     {
         $this->query = "{$this->query} LIMIT {$limit_number}";
 
+        return $this->get();
+    }
+
+
+    /**
+     * Updates the table
+     *
+     * @param $limit_number    - int - how many results to return
+     *
+     * @return runs the query.
+     */
+    public function update($values)
+    {
+
+        $where = $this->get();
+
+        $query = "UPDATE `{$this->table}` SET ";
+
+        foreach($values as $key => $value)
+        {
+            $query .= "`{$key}` = :{$key}";
+
+
+        }
+
+        $query .= " WHERE  `id` = {$where[0]->id}";
+
+        $this->query = $query;
+        $this->attributes = $values;
+
+        // dd($this->query);
+
         return $this->run();
     }
 
 
-    // /**
-    //  * Updates the table
-    //  *
-    //  * @param $limit_number    - int - how many results to return
-    //  *
-    //  * @return runs the query.
-    //  */
-    // public function update($values)
-    // {
-    //
-    //
-    //
-    //
-    //     $this->query = "UPDATE {$this->table} SET ";
-    //
-    //     return $this->run();
-    // }
+    /**
+     * Executes the query
+     *
+     * @return JSON formatted object of database results.
+     */
+    public function get()
+    {
+        try {
+
+            $prepare = $this->db->prepare($this->query);
+            $prepare->execute($this->attributes);
+            $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
+            $this->output = $obj;
+            return $obj;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 
 
     /**
@@ -208,12 +242,6 @@ class QueryBuilder implements JsonSerializable
         try {
             $prepare = $this->db->prepare($this->query);
             $prepare->execute($this->attributes);
-            $obj = $prepare->fetchAll(PDO::FETCH_OBJ);
-            $this->output = $obj;
-
-            // return $this->toJson();
-            return $obj;
-
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

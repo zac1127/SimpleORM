@@ -7,8 +7,9 @@ class UsersController
 {
     public function index()
     {
-        $users = User::where('id', '1')->run();
+            $users = User::all()->get();
 
-        return view('users.index', compact('users'));
+            return view('/users/index', compact('users'));
+
     }
 }
