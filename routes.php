@@ -1,5 +1,8 @@
 <?php
 
+use ZacBranson\Core\Route;
+
+
 /* Pages Controller routes */
 $router->get('/', 'PageController@index');
 $router->get('/about', 'PageController@about');
@@ -8,4 +11,4 @@ $router->get('/about', 'PageController@about');
 $router->get('/users', 'UsersController@index');
 
 
-$router->post('/add_name', 'nameController@add_name');
+// Route::post('/add_name', 'nameController@add_name');
